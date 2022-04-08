@@ -15,19 +15,25 @@ public class StudentController {
     private final StudentService studentService;
 
     @GetMapping
-    public List<Student> findAllStudents() {
+    List<Student> findAllStudents() {
         return studentService.getAllStudents();
     }
 
     @GetMapping("/{studentID}")
-    public Student getCustomerByID(@PathVariable("studentID") String studentID) {
+    Student getCustomerByID(@PathVariable("studentID") String studentID) {
         log.info("g=fetching customer with id {}", studentID);
         return studentService.getStudent(Long.getLong(studentID));
     }
 
     @PostMapping
-    public Student postNewStudent(Student newStudent) {
+    Student postNewStudent(Student newStudent) {
         log.info("Saving new customer");
         return studentService.addStudent(newStudent);
+    }
+
+    @PatchMapping("/{studentID}")
+    Student updateNewStudent(@PathVariable("studentID") String studentID, Student student) {
+        log.info("Saving new customer");
+        return studentService.updateStudent(studentID, student);
     }
 }
