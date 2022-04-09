@@ -36,7 +36,7 @@ public class StudentService {
     }
 
     @CachePut(key = "#id")
-    public Student updateStudent(String id, Student student) {
+    public Student updateStudent(Long id, Student student) {
         return studentRepository.save(student);
     }
 }
