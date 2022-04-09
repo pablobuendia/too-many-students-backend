@@ -35,14 +35,14 @@ public class UniversityExampleApplication implements CommandLineRunner {
 		val uni = University.builder().name("MIT").build();
 		universityRepository.save(uni);
 
-		val addressPablo = Address.builder().lineStreet1("Belgrano 111").build();
-		val addressMaria = Address.builder().lineStreet1("Guemes 111").build();
-		val addressJuana = Address.builder().lineStreet1("Paz 111").build();
-		addressRepository.saveAll(List.of(addressPablo, addressMaria, addressJuana));
+		val pablo = studentRepository.save(Student.builder().firstName("Pablo").lastName("Buendia").university(uni).build());
+		val maria = studentRepository.save(Student.builder().firstName("Maria").lastName("Rodriguez").university(uni).build());
+		val juana = studentRepository.save(Student.builder().firstName("Juana").lastName("Perez").university(uni).build());
 
-		studentRepository.save(Student.builder().firstName("Pablo").lastName("Buendia").university(uni).build());
-		studentRepository.save(Student.builder().firstName("Maria").lastName("Rodriguez").university(uni).build());
-		studentRepository.save(Student.builder().firstName("Juana").lastName("Perez").university(uni).build());
+		val addressPablo = Address.builder().lineStreet1("Belgrano 111").owner(pablo).build();
+		val addressMaria =Address.builder().lineStreet1("Guemes 111").owner(maria).build();
+		val addressJuana =Address.builder().lineStreet1("Paz 111").owner(juana).build();
+		addressRepository.saveAll(List.of(addressPablo, addressMaria, addressJuana));
 	}
 
 }
