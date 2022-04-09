@@ -9,4 +9,5 @@ public interface UniversityMapper {
     UniversityMapper INSTANCE = Mappers.getMapper(UniversityMapper.class);
 
     University universityDtoToUniversity(UniversityDto universityDto);
+    UniversityDto universityToUniversityDto(University university);
 }
