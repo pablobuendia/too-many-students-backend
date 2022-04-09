@@ -1,8 +1,5 @@
 package com.example.universityexample.universityexample.student;
 
-import com.example.universityexample.universityexample.address.Address;
-import com.example.universityexample.universityexample.address.AddressMapper;
-import com.example.universityexample.universityexample.address.AddressRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.cache.annotation.CacheConfig;
@@ -20,10 +17,11 @@ import java.util.stream.Collectors;
 public class StudentService {
 
     private final StudentRepository studentRepository;
-    private final AddressRepository addressRepository;
 
-    public List<Student> getAllStudents() {
-        return studentRepository.findAll();
+    public List<StudentDto> getAllStudents() {
+        return studentRepository.findAll().stream()
+                .map(StudentMapper.INSTANCE::studentToStudentDto)
+                .collect(Collectors.toList());
     }
 
     @Cacheable
@@ -33,27 +31,14 @@ public class StudentService {
     }
 
     public StudentDto addStudent(StudentDto studentDto) {
-        val savedStudent = studentRepository.save(StudentMapper.INSTANCE.studentDtoToStudent(studentDto));
+        val studentEntity = StudentMapper.INSTANCE.studentDtoToStudent(studentDto);
 
-        val savedAddressList = saveAddressList(studentDto, savedStudent);
-        savedStudent.setAddressList(savedAddressList);
-
-        return StudentMapper.INSTANCE.studentToStudentDto(savedStudent);
-    }
-
-    private List<Address> saveAddressList(StudentDto studentDto, Student savedStudent) {
-        if (studentDto.getAddressList() == null) {
-            return null;
+        if (studentEntity.getAddressList() != null) {
+            studentEntity.getAddressList()
+                    .forEach(address -> address.setOwner(studentEntity));
         }
 
-        return studentDto.getAddressList().stream()
-                .map(AddressMapper.INSTANCE::addressDtoToAddress)
-                .map(address -> {
-                    address.setStudent(savedStudent);
-                    return address;
-                })
-                .map(addressRepository::save)
-                .collect(Collectors.toList());
+        return StudentMapper.INSTANCE.studentToStudentDto(studentRepository.save(studentEntity));
     }
 
     @CacheEvict
