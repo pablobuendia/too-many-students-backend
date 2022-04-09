@@ -1,5 +1,6 @@
 package com.example.universityexample.universityexample.student;
 
+import com.example.universityexample.universityexample.address.Address;
 import com.example.universityexample.universityexample.university.University;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -29,4 +31,7 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "universityId")
     private University university;
+
+    @Transient
+    private List<Address> addressList;
 }

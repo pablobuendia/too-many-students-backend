@@ -26,13 +26,13 @@ public class StudentController {
     }
 
     @PostMapping
-    Student postNewStudent(@RequestBody StudentDto newStudent) {
+    StudentDto postNewStudent(@RequestBody StudentDto newStudent) {
         log.info("Saving new customer");
         return studentService.addStudent(newStudent);
     }
 
     @PatchMapping("/{studentID}")
-    Student updateNewStudent(@PathVariable("studentID") String studentID, @RequestBody StudentDto student) {
+    StudentDto updateNewStudent(@PathVariable("studentID") String studentID, @RequestBody StudentDto student) {
         log.info("Updating customer with id {}", studentID);
         return studentService.updateStudent(Long.parseLong(studentID), student);
     }
