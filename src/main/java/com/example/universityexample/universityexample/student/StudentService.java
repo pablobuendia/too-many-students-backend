@@ -26,8 +26,8 @@ public class StudentService {
         new RuntimeException("No such student found with id"));
     }
 
-    public Student addStudent(Student student) {
-        return studentRepository.save(student);
+    public Student addStudent(StudentDto studentDto) {
+        return studentRepository.save(StudentMapper.INSTANCE.studentDtoToStudent(studentDto));
     }
 
     @CacheEvict
@@ -36,7 +36,7 @@ public class StudentService {
     }
 
     @CachePut(key = "#id")
-    public Student updateStudent(Long id, Student student) {
-        return studentRepository.save(student);
+    public Student updateStudent(Long id, StudentDto studentDto) {
+        return studentRepository.save(StudentMapper.INSTANCE.studentDtoToStudent(studentDto));
     }
 }
