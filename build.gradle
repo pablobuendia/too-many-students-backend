@@ -14,19 +14,29 @@ configurations {
 	}
 }
 
+ext {
+	mapstructVersion = "1.4.2.Final"
+	lombokVersion = "1.18.22"
+	lombokMapstructBindingVersion = "0.2.0"
+	h2databaseVersion = '2.1.210'
+}
+
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'org.postgresql:postgresql'
-	annotationProcessor 'org.projectlombok:lombok'
-	implementation 'com.h2database:h2:2.1.210'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+	implementation "org.springframework.boot:spring-boot-starter-web"
+	implementation "org.springframework.boot:spring-boot-starter-webflux"
+	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+	implementation "com.h2database:h2:${h2databaseVersion}"
+	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+	annotationProcessor "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
+	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+	compileOnly "org.projectlombok:lombok:${lombokVersion}"
+	runtimeOnly "org.postgresql:postgresql"
+	testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 
 tasks.named('test') {
