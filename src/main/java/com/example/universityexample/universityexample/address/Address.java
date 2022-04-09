@@ -1,6 +1,6 @@
 package com.example.universityexample.universityexample.address;
 
-import com.example.universityexample.universityexample.student.Student;
+import com.example.universityexample.universityexample.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Address {
+public class Address extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -25,7 +25,7 @@ public class Address {
 
     private String lineStreet2;
 
-    @ManyToOne
-    @JoinColumn(name = "studentId")
-    private Student student;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ownerId", nullable = false)
+    private BaseEntity owner;
 }
