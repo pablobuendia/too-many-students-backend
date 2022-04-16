@@ -25,9 +25,10 @@ public class StudentService {
     }
 
     @Cacheable
-    public Student getStudent(Long id){
-        return studentRepository.findById(id).orElseThrow(() ->
+    public StudentDto getStudent(Long id){
+        val student = studentRepository.findById(id).orElseThrow(() ->
         new RuntimeException("No such student found with id"));
+        return StudentMapper.INSTANCE.studentToStudentDto(student);
     }
 
     public StudentDto addStudent(StudentDto studentDto) {

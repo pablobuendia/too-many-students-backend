@@ -29,6 +29,6 @@ public class Student extends BaseEntity {
     @JoinColumn(name = "universityId")
     private University university;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "owner")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "owner")
     private List<Address> addressList;
 }

@@ -20,7 +20,7 @@ public class StudentController {
     }
 
     @GetMapping("/{studentID}")
-    Student getCustomerByID(@PathVariable("studentID") String studentID) {
+    StudentDto getCustomerByID(@PathVariable("studentID") String studentID) {
         log.info("g=fetching customer with id {}", studentID);
         return studentService.getStudent(Long.parseLong(studentID));
     }
