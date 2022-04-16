@@ -9,3 +9,8 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
   h2:
     console.enabled: true
+
+com:
+  pablo:
+    security:
+      enabled: true
