@@ -1,9 +1,9 @@
 package com.example.universityexample.universityexample.student;
 
-import com.example.universityexample.universityexample.university.UniversityDto;
 import com.example.universityexample.universityexample.address.Address;
 import com.example.universityexample.universityexample.address.AddressDto;
 import com.example.universityexample.universityexample.university.University;
+import com.example.universityexample.universityexample.university.UniversityDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

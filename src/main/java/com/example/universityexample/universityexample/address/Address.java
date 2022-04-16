@@ -1,6 +1,7 @@
 package com.example.universityexample.universityexample.address;
 
 import com.example.universityexample.universityexample.BaseEntity;
+import com.example.universityexample.universityexample.address.city.City;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,4 +29,8 @@ public class Address extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ownerId", nullable = false)
     private BaseEntity owner;
+
+    @OneToOne
+    @JoinColumn(name = "cityId")
+    private City city;
 }
