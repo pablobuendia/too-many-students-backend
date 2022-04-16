@@ -34,6 +34,8 @@ public class UniversityExampleApplication implements CommandLineRunner {
 
 		val uni = University.builder().name("MIT").build();
 		universityRepository.save(uni);
+		val addressUni = Address.builder().lineStreet1("Rivadavia 111").owner(uni).build();
+		addressRepository.save(addressUni);
 
 		val pablo = studentRepository.save(Student.builder().firstName("Pablo").lastName("Buendia").university(uni).build());
 		val maria = studentRepository.save(Student.builder().firstName("Maria").lastName("Rodriguez").university(uni).build());
