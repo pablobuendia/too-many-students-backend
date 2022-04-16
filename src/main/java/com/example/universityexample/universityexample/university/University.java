@@ -1,12 +1,14 @@
 package com.example.universityexample.universityexample.university;
 
 import com.example.universityexample.universityexample.BaseEntity;
+import com.example.universityexample.universityexample.address.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -22,4 +24,7 @@ public class University extends BaseEntity {
 
     @Column(nullable = false, unique = true)
     private String name;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "owner")
+    private List<Address> addressList;
 }
