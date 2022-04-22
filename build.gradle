@@ -18,7 +18,8 @@ ext {
 	mapstructVersion = "1.4.2.Final"
 	lombokVersion = "1.18.22"
 	lombokMapstructBindingVersion = "0.2.0"
-	h2databaseVersion = '2.1.210'
+	h2databaseVersion = "2.1.210"
+	springfoxVersion = "3.0.0"
 }
 
 repositories {
@@ -29,7 +30,8 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
 	implementation "org.springframework.boot:spring-boot-starter-web"
 	implementation "org.springframework.boot:spring-boot-starter-webflux"
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation "org.springframework.boot:spring-boot-starter-security"
+	implementation "org.springdoc:springdoc-openapi-ui:1.6.7"
 	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
 	implementation "com.h2database:h2:${h2databaseVersion}"
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
