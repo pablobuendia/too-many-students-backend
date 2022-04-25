@@ -2,10 +2,7 @@ package com.example.universityexample.university;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +22,10 @@ public class UniversityController {
     @GetMapping("/{universityID}")
     public UniversityDto getUniversity(@PathVariable("universityID") String universityID) {
         return universityService.getUniversity(Long.parseLong(universityID));
+    }
+
+    @PostMapping
+    public UniversityDto postNewUniversity(@RequestBody UniversityDto newUniversity) {
+        return universityService.postNewUniversity(newUniversity);
     }
 }

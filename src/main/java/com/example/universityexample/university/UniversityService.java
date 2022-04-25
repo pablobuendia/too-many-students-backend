@@ -24,4 +24,10 @@ public class UniversityService {
                 new RuntimeException("No university found for id"));
         return UniversityMapper.INSTANCE.universityToUniversityDto(university);
     }
+
+    public UniversityDto postNewUniversity(UniversityDto universityDto) {
+        val response = universityRepository.save(UniversityMapper.INSTANCE.universityDtoToUniversity(universityDto));
+
+        return UniversityMapper.INSTANCE.universityToUniversityDto(response);
+    }
 }
