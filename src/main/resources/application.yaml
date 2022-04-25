@@ -19,3 +19,16 @@ com:
       enabled: true
     security:
       enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - mappings
+        - beans
+        - startup
+        - env
+        - scheduledtasks
+        - caches
+        - metrics
