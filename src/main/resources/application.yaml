@@ -21,14 +21,22 @@ com:
       enabled: true
 
 management:
+  info:
+    java:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
   endpoints:
     web:
       exposure:
         include:
-        - mappings
-        - beans
-        - startup
-        - env
-        - scheduledtasks
-        - caches
-        - metrics
+          - health
+          - mappings
+          - beans
+          - startup
+          - env
+          - scheduledtasks
+          - caches
+          - metrics
+          - info
