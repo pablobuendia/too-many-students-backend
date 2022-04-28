@@ -1,12 +1,14 @@
 package com.example.universityexample.university;
 
 import com.example.universityexample.address.AddressDto;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class UniversityDto {
 
