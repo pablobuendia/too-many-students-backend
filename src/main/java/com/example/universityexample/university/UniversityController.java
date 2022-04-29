@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,7 @@ public class UniversityController {
     }
 
     @PostMapping
-    public UniversityDto postNewUniversity(@RequestBody UniversityDto newUniversity) {
+    public UniversityDto postNewUniversity(@Valid @RequestBody UniversityDto newUniversity) {
         return universityService.postNewUniversity(newUniversity);
     }
 }

@@ -3,6 +3,7 @@ package com.example.universityexample.university;
 import com.example.universityexample.address.AddressDto;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -13,6 +14,9 @@ import java.util.List;
 public class UniversityDto {
 
     private String id;
+
+    @NotNull
     private String name;
+
     private List<AddressDto> addressList;
 }
