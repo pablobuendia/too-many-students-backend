@@ -1,6 +1,6 @@
 package com.example.universityexample.configuration;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 @ConditionalOnProperty(name = "com.pablo.security.enabled", havingValue = "true")
-@Log4j2
+@Slf4j
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override

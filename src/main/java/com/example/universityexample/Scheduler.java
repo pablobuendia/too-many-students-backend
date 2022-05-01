@@ -1,13 +1,13 @@
 package com.example.universityexample;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
 @Service
-@Log4j2
+@Slf4j
 public class Scheduler {
 
     @Scheduled(fixedRate = 100000)
