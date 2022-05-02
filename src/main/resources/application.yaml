@@ -21,6 +21,8 @@ com:
       enabled: true
     caching:
       enabled: true
+    async:
+      enabled: true
 
 management:
   info:
