@@ -1,8 +1,6 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.example.university-example.university-example' is invalid and this project uses 'com.example.universityexample.universityexample' instead.
-
 # Getting Started
 
 ### Reference Documentation
