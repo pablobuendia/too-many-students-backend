@@ -19,6 +19,8 @@ com:
       enabled: true
     security:
       enabled: true
+    caching:
+      enabled: true
 
 management:
   info:
