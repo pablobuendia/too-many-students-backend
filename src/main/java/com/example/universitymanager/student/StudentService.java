@@ -1,5 +1,6 @@
 package com.example.universitymanager.student;
 
+import com.example.universitymanager.event.Publisher;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.cache.annotation.CacheConfig;
@@ -17,6 +18,8 @@ import java.util.stream.Collectors;
 public class StudentService {
 
     private final StudentRepository studentRepository;
+
+    private final Publisher publisher;
 
     public List<StudentDto> getAllStudents() {
         return studentRepository.findAll().stream()
@@ -39,7 +42,11 @@ public class StudentService {
                     .forEach(address -> address.setOwner(studentEntity));
         }
 
-        return StudentMapper.INSTANCE.studentToStudentDto(studentRepository.save(studentEntity));
+        val savedStudent = studentRepository.save(studentEntity);
+
+        publisher.publishEvent(savedStudent.getUpdated().toString());
+
+        return StudentMapper.INSTANCE.studentToStudentDto(savedStudent);
     }
 
     @CacheEvict
