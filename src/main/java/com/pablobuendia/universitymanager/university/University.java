@@ -1,21 +1,17 @@
 package com.pablobuendia.universitymanager.university;
 
-import com.pablobuendia.universitymanager.commons.BaseEntity;
 import com.pablobuendia.universitymanager.address.Address;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.pablobuendia.universitymanager.commons.BaseEntity;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table
-@Builder
+@EqualsAndHashCode(callSuper = false)
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class University extends BaseEntity {
 
     @Id
@@ -25,6 +21,6 @@ public class University extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "owner")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addressList;
 }

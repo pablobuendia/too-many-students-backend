@@ -8,10 +8,4 @@ import org.mapstruct.factory.Mappers;
 public interface AddressMapper {
 
     AddressMapper INSTANCE = Mappers.getMapper(AddressMapper.class);
-
-    // This prevents a recursive StackOverflowError
-    @Mapping(target = "owner", ignore = true)
-    Address addressDtoToAddress(AddressDto addressDto);
-    @Mapping(target = "owner", ignore = true)
-    AddressDto addressToAddressDto(Address address);
 }

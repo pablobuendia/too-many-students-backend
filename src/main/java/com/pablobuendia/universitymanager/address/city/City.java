@@ -1,20 +1,17 @@
 package com.pablobuendia.universitymanager.address.city;
 
-import com.pablobuendia.universitymanager.commons.BaseEntity;
 import com.pablobuendia.universitymanager.address.country.Country;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.pablobuendia.universitymanager.commons.BaseEntity;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
+
+@EqualsAndHashCode(callSuper = false)
+@Data
 @Entity
 @Table
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 public class City extends BaseEntity {
 
     @Column(nullable = false, unique = true)

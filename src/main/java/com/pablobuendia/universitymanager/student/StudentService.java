@@ -28,19 +28,14 @@ public class StudentService {
     }
 
     @Cacheable
-    public StudentDto getStudent(Long id){
+    public StudentDto getStudent(Long id) {
         val student = studentRepository.findById(id).orElseThrow(() ->
-        new RuntimeException("No such student found with id"));
+                new RuntimeException("No such student found with id"));
         return StudentMapper.INSTANCE.studentToStudentDto(student);
     }
 
     public StudentDto addStudent(StudentDto studentDto) {
         val studentEntity = StudentMapper.INSTANCE.studentDtoToStudent(studentDto);
-
-        if (studentEntity.getAddressList() != null) {
-            studentEntity.getAddressList()
-                    .forEach(address -> address.setOwner(studentEntity));
-        }
 
         val savedStudent = studentRepository.save(studentEntity);
 

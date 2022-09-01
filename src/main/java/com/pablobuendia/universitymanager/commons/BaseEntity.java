@@ -1,8 +1,6 @@
 package com.pablobuendia.universitymanager.commons;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -10,10 +8,7 @@ import javax.persistence.*;
 import java.time.ZonedDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@MappedSuperclass
 public class BaseEntity {
 
     @Id

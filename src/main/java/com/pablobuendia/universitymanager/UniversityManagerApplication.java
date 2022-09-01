@@ -6,6 +6,7 @@ import com.pablobuendia.universitymanager.address.city.City;
 import com.pablobuendia.universitymanager.address.city.CityRepository;
 import com.pablobuendia.universitymanager.address.country.Country;
 import com.pablobuendia.universitymanager.address.country.CountryRepository;
+import com.pablobuendia.universitymanager.commons.BaseEntity;
 import com.pablobuendia.universitymanager.student.Student;
 import com.pablobuendia.universitymanager.student.StudentRepository;
 import com.pablobuendia.universitymanager.university.University;
@@ -24,38 +25,69 @@ import java.util.List;
 @Slf4j
 public class UniversityManagerApplication implements CommandLineRunner {
 
-	private final StudentRepository studentRepository;
-	private final UniversityRepository universityRepository;
-	private final AddressRepository addressRepository;
-	private final CityRepository cityRepository;
-	private final CountryRepository countryRepository;
+    private final StudentRepository studentRepository;
+    private final UniversityRepository universityRepository;
+    private final AddressRepository addressRepository;
+    private final CityRepository cityRepository;
+    private final CountryRepository countryRepository;
 
-	public static void main(String[] args) {
-		SpringApplication.run(UniversityManagerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(UniversityManagerApplication.class, args);
+    }
 
-	@Override
-	public void run(String... args) {
-		log.info("Entering sample data through CommandLineRunner");
+    @Override
+    public void run(String... args) {
+        log.info("Entering sample data through CommandLineRunner");
 
-		val uni = University.builder().name("University of Buenos Aires").build();
-		universityRepository.save(uni);
+        val uni = createUniversity("University of Buenos Aires");
+        universityRepository.save(uni);
 
-		val argentina = Country.builder().name("Argentina").build();
-		countryRepository.save(argentina);
-		val buenosAires = City.builder().name("Buenos Aires").country(argentina).build();
-		cityRepository.save(buenosAires);
-		val addressUni = Address.builder().lineStreet1("Rivadavia 111").city(buenosAires).owner(uni).build();
-		addressRepository.save(addressUni);
+        val argentina = createCountry("Argentina");
+        countryRepository.save(argentina);
+        val buenosAires = new City();
+        buenosAires.setName("Buenos Aires");
+        buenosAires.setCountry(argentina);
+        cityRepository.save(buenosAires);
 
-		val pablo = studentRepository.save(Student.builder().firstName("Pablo").lastName("Buendia").university(uni).build());
-		val maria = studentRepository.save(Student.builder().firstName("Maria").lastName("Rodriguez").university(uni).build());
-		val juana = studentRepository.save(Student.builder().firstName("Juana").lastName("Perez").university(uni).build());
+        final Address addressUni = createAddress(uni, buenosAires, "Rivadavia 111");
+        addressRepository.save(addressUni);
 
-		val addressPablo = Address.builder().lineStreet1("Belgrano 111").city(buenosAires).owner(pablo).build();
-		val addressMaria =Address.builder().lineStreet1("Guemes 111").city(buenosAires).owner(maria).build();
-		val addressJuana =Address.builder().lineStreet1("Paz 111").city(buenosAires).owner(juana).build();
-		addressRepository.saveAll(List.of(addressPablo, addressMaria, addressJuana));
-	}
+        val pablo = studentRepository.save(createStudent(uni, "Pablo", "Buendia"));
+        val maria = studentRepository.save(createStudent(uni, "Maria", "Rodriguez"));
+        val juana = studentRepository.save(createStudent(uni, "Juana", "Perez"));
+
+        val addressPablo = createAddress(pablo, buenosAires, "Belgrano 111");
+        val addressMaria = createAddress(maria, buenosAires, "Guemes 111");
+        val addressJuana = createAddress(juana, buenosAires, "Paz 111");
+        addressRepository.saveAll(List.of(addressPablo, addressMaria, addressJuana));
+    }
+
+    private University createUniversity(String name) {
+        University uni = new University();
+        uni.setName(name);
+        return uni;
+    }
+
+    private Country createCountry(String name) {
+        Country country = new Country();
+        country.setName(name);
+        return country;
+    }
+
+    private Student createStudent(University uni, String firstName, String lastName) {
+        val student = new Student();
+        student.setUniversity(uni);
+        student.setFirstName(firstName);
+        student.setLastName(lastName);
+        return student;
+    }
+
+    private Address createAddress(BaseEntity owner, City city, String lineStreet1) {
+        val addressUni = new Address();
+        addressUni.setLineStreet1(lineStreet1);
+        addressUni.setCity(city);
+        return addressUni;
+    }
+
 
 }
