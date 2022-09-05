@@ -4,6 +4,7 @@ import com.pablobuendia.universitymanager.address.Address;
 import com.pablobuendia.universitymanager.address.AddressRepository;
 import com.pablobuendia.universitymanager.address.city.City;
 import com.pablobuendia.universitymanager.address.city.CityRepository;
+import com.pablobuendia.universitymanager.address.city.CityRepositoryImpl;
 import com.pablobuendia.universitymanager.address.country.Country;
 import com.pablobuendia.universitymanager.address.country.CountryRepository;
 import com.pablobuendia.universitymanager.commons.BaseEntity;
@@ -31,6 +32,8 @@ public class UniversityManagerApplication implements CommandLineRunner {
     private final CityRepository cityRepository;
     private final CountryRepository countryRepository;
 
+    private final CityRepositoryImpl cityRepositoryImpl;
+
     public static void main(String[] args) {
         SpringApplication.run(UniversityManagerApplication.class, args);
     }
@@ -38,6 +41,7 @@ public class UniversityManagerApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
         log.info("Entering sample data through CommandLineRunner");
+
 
         val uni = createUniversity("University of Buenos Aires");
         universityRepository.save(uni);
@@ -60,6 +64,13 @@ public class UniversityManagerApplication implements CommandLineRunner {
         val addressMaria = createAddress(maria, buenosAires, "Guemes 111");
         val addressJuana = createAddress(juana, buenosAires, "Paz 111");
         addressRepository.saveAll(List.of(addressPablo, addressMaria, addressJuana));
+
+
+        // Try EntityManager save action
+        val city = new City();
+        city.setName("Salta");
+        city.setCountry(argentina);
+        cityRepositoryImpl.save(city);
     }
 
     private University createUniversity(String name) {

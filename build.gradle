@@ -1,7 +1,7 @@
 plugins {
-	id 'org.springframework.boot' version '2.6.4'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'java'
+    id 'org.springframework.boot' version '2.6.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
 }
 
 group = 'com.example.university-example'
@@ -9,41 +9,42 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 ext {
-	mapstructVersion = "1.4.2.Final"
-	lombokVersion = "1.18.22"
-	lombokMapstructBindingVersion = "0.2.0"
-	h2databaseVersion = "2.1.210"
-	springfoxVersion = "3.0.0"
+    mapstructVersion = "1.4.2.Final"
+    lombokVersion = "1.18.22"
+    lombokMapstructBindingVersion = "0.2.0"
+    h2databaseVersion = "2.1.210"
+    springfoxVersion = "3.0.0"
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
-	implementation "org.springframework.boot:spring-boot-starter-web"
-	implementation "org.springframework.boot:spring-boot-starter-webflux"
-	implementation "org.springframework.boot:spring-boot-starter-security"
-	implementation "org.springframework.boot:spring-boot-starter-actuator"
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation "org.springdoc:springdoc-openapi-ui:1.6.7"
-	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
-	implementation "com.h2database:h2:${h2databaseVersion}"
-	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
-	annotationProcessor "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
-	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
-	compileOnly "org.projectlombok:lombok:${lombokVersion}"
-	runtimeOnly "org.postgresql:postgresql"
-	testImplementation "org.springframework.boot:spring-boot-starter-test"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-webflux"
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation "org.springdoc:springdoc-openapi-ui:1.6.7"
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    implementation "com.h2database:h2:${h2databaseVersion}"
+    implementation 'org.postgresql:postgresql:42.5.0'
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    runtimeOnly "org.postgresql:postgresql"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }

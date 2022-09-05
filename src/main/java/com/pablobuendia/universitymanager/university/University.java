@@ -2,16 +2,22 @@ package com.pablobuendia.universitymanager.university;
 
 import com.pablobuendia.universitymanager.address.Address;
 import com.pablobuendia.universitymanager.commons.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table
-@EqualsAndHashCode(callSuper = false)
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class University extends BaseEntity {
 
     @Id
@@ -22,5 +28,19 @@ public class University extends BaseEntity {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Address> addressList;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        University that = (University) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

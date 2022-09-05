@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class StudentController {
     @Operation(summary = "Get all students", description = "Get all students, including addresses and university")
     @GetMapping
     List<StudentDto> findAllStudents() {
+        val result = studentService.getAllStudents();
         return studentService.getAllStudents();
     }
 

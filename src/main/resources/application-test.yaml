@@ -1,14 +1,14 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
+    url: jdbc:h2:mem:testdb
+    username: example
     password: password
-    driverClassName: org.postgresql.Driver
+    driverClassName: org.h2.Driver
   jpa:
-    database: POSTGRESQL
     show-sql: true
-    hibernate:
-      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console.enabled: true
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

@@ -2,13 +2,19 @@ package com.pablobuendia.universitymanager.address;
 
 import com.pablobuendia.universitymanager.address.city.City;
 import com.pablobuendia.universitymanager.commons.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Objects;
 
-@EqualsAndHashCode(callSuper = false)
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table
 public class Address extends BaseEntity {
@@ -21,4 +27,17 @@ public class Address extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "cityId")
     private City city;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Address address = (Address) o;
+        return getId() != null && Objects.equals(getId(), address.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
