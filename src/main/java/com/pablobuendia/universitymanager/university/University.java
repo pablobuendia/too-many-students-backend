@@ -1,6 +1,6 @@
 package com.pablobuendia.universitymanager.university;
 
-import com.pablobuendia.universitymanager.address.Address;
+import com.pablobuendia.universitymanager.address.city.City;
 import com.pablobuendia.universitymanager.commons.BaseEntity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,6 @@ import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -27,9 +26,14 @@ public class University extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private List<Address> addressList;
+    @Column(nullable = false)
+    private String lineStreet1;
+
+    private String lineStreet2;
+
+    @OneToOne
+    @JoinColumn(name = "cityId")
+    private City city;
 
     @Override
     public boolean equals(Object o) {

@@ -43,7 +43,7 @@ public class UniversityManagerApplication implements CommandLineRunner {
         log.info("Entering sample data through CommandLineRunner");
 
 
-        val uni = createUniversity("University of Buenos Aires");
+        val uni = createUniversity("University of Buenos Aires", "Paso 123");
         universityRepository.save(uni);
 
         val argentina = createCountry("Argentina");
@@ -73,9 +73,10 @@ public class UniversityManagerApplication implements CommandLineRunner {
         cityRepositoryImpl.save(city);
     }
 
-    private University createUniversity(String name) {
+    private University createUniversity(String name, String lineStreet1) {
         University uni = new University();
         uni.setName(name);
+        uni.setLineStreet1(lineStreet1);
         return uni;
     }
 

@@ -1,6 +1,5 @@
 package com.pablobuendia.universitymanager.student;
 
-import com.pablobuendia.universitymanager.address.Address;
 import com.pablobuendia.universitymanager.commons.BaseEntity;
 import com.pablobuendia.universitymanager.university.University;
 import lombok.Getter;
@@ -10,7 +9,6 @@ import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -30,10 +28,6 @@ public class Student extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "universityId")
     private University university;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private List<Address> addressList;
 
     @Override
     public boolean equals(Object o) {
