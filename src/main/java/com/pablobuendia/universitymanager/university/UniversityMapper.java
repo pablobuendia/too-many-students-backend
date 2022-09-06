@@ -1,7 +1,5 @@
 package com.pablobuendia.universitymanager.university;
 
-import com.pablobuendia.universitymanager.commons.BaseEntity;
-import com.pablobuendia.universitymanager.commons.BaseEntityDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -13,8 +11,4 @@ public interface UniversityMapper {
     University universityDtoToUniversity(UniversityDto universityDto);
 
     UniversityDto universityToUniversityDto(University university);
-
-    BaseEntity map(BaseEntityDto value);
-
-    BaseEntityDto map(BaseEntity value);
 }

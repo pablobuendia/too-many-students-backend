@@ -7,8 +7,4 @@ import org.mapstruct.factory.Mappers;
 public interface BaseMapper {
 
     BaseMapper INSTANCE = Mappers.getMapper(BaseMapper.class);
-
-    BaseEntity map(BaseEntityDto value);
-
-    BaseEntityDto map(BaseEntity value);
 }

@@ -1,14 +1,16 @@
 package com.pablobuendia.universitymanager.student;
 
-import com.pablobuendia.universitymanager.commons.BaseEntity;
 import com.pablobuendia.universitymanager.university.University;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 @Entity
@@ -17,7 +19,21 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Student extends BaseEntity {
+public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "studentGenerator")
+    @SequenceGenerator(name = "studentGenerator", sequenceName = "STUDENT_GENERATOR", allocationSize = 10)
+    private Long id;
+
+    @Version
+    private Integer version;
+
+    @CreatedDate
+    private ZonedDateTime created;
+
+    @LastModifiedDate
+    private ZonedDateTime updated;
 
     @Column(nullable = false)
     private String firstName;
@@ -34,7 +50,7 @@ public class Student extends BaseEntity {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Student student = (Student) o;
-        return getId() != null && Objects.equals(getId(), student.getId());
+        return id != null && Objects.equals(id, student.id);
     }
 
     @Override

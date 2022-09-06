@@ -7,7 +7,6 @@ import com.pablobuendia.universitymanager.address.city.CityRepository;
 import com.pablobuendia.universitymanager.address.city.CityRepositoryImpl;
 import com.pablobuendia.universitymanager.address.country.Country;
 import com.pablobuendia.universitymanager.address.country.CountryRepository;
-import com.pablobuendia.universitymanager.commons.BaseEntity;
 import com.pablobuendia.universitymanager.student.Student;
 import com.pablobuendia.universitymanager.student.StudentRepository;
 import com.pablobuendia.universitymanager.university.University;
@@ -53,9 +52,6 @@ public class UniversityManagerApplication implements CommandLineRunner {
         buenosAires.setCountry(argentina);
         cityRepository.save(buenosAires);
 
-        final Address addressUni = createAddress(uni, buenosAires, "Rivadavia 111");
-        addressRepository.save(addressUni);
-
         val pablo = studentRepository.save(createStudent(uni, "Pablo", "Buendia"));
         val maria = studentRepository.save(createStudent(uni, "Maria", "Rodriguez"));
         val juana = studentRepository.save(createStudent(uni, "Juana", "Perez"));
@@ -94,8 +90,9 @@ public class UniversityManagerApplication implements CommandLineRunner {
         return student;
     }
 
-    private Address createAddress(BaseEntity owner, City city, String lineStreet1) {
+    private Address createAddress(Student owner, City city, String lineStreet1) {
         val addressUni = new Address();
+        addressUni.setStudentOwner(owner);
         addressUni.setLineStreet1(lineStreet1);
         addressUni.setCity(city);
         return addressUni;
