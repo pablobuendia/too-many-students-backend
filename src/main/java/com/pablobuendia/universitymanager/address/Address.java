@@ -9,9 +9,10 @@ import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
@@ -20,6 +21,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Entity
 @Table
+@EntityListeners(AuditingEntityListener.class)
 public class Address {
 
     @Id
@@ -45,10 +47,10 @@ public class Address {
     private Integer version;
 
     @CreatedDate
-    private ZonedDateTime created;
+    private LocalDateTime created;
 
     @LastModifiedDate
-    private ZonedDateTime updated;
+    private LocalDateTime updated;
 
     @Override
     public boolean equals(Object o) {

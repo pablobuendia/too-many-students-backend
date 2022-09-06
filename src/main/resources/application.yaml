@@ -23,6 +23,8 @@ com:
       enabled: true
     async:
       enabled: true
+    auditing:
+      enabled: true
 
 management:
   info:
