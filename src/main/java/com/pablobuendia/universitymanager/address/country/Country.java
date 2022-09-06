@@ -1,18 +1,32 @@
 package com.pablobuendia.universitymanager.address.country;
 
-import com.pablobuendia.universitymanager.commons.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table
 @Getter
 @Setter
-public class Country extends BaseEntity {
+public class Country {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "countryGenerator")
+    @SequenceGenerator(name = "countryGenerator", sequenceName = "COUNTRY_GENERATOR", allocationSize = 10)
+    private Long id;
+
+    @Version
+    private Integer version;
+
+    @CreatedDate
+    private ZonedDateTime created;
+
+    @LastModifiedDate
+    private ZonedDateTime updated;
 
     @Column(nullable = false, unique = true)
     private String name;

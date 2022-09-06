@@ -1,14 +1,16 @@
 package com.pablobuendia.universitymanager.university;
 
 import com.pablobuendia.universitymanager.address.city.City;
-import com.pablobuendia.universitymanager.commons.BaseEntity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 @Entity
@@ -17,11 +19,21 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class University extends BaseEntity {
+public class University {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "universityGenerator")
+    @SequenceGenerator(name = "universityGenerator", sequenceName = "UNIVERSITY_GENERATOR", allocationSize = 10)
     private Long id;
+
+    @Version
+    private Integer version;
+
+    @CreatedDate
+    private ZonedDateTime created;
+
+    @LastModifiedDate
+    private ZonedDateTime updated;
 
     @Column(nullable = false, unique = true)
     private String name;
