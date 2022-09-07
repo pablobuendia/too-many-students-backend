@@ -8,9 +8,10 @@ import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -19,21 +20,22 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class University {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "universityGenerator")
-    @SequenceGenerator(name = "universityGenerator", sequenceName = "UNIVERSITY_GENERATOR", allocationSize = 10)
+    @SequenceGenerator(name = "universityGenerator", sequenceName = "universityGenerator", allocationSize = 10)
     private Long id;
 
     @Version
     private Integer version;
 
     @CreatedDate
-    private ZonedDateTime created;
+    private LocalDateTime created;
 
     @LastModifiedDate
-    private ZonedDateTime updated;
+    private LocalDateTime updated;
 
     @Column(nullable = false, unique = true)
     private String name;
