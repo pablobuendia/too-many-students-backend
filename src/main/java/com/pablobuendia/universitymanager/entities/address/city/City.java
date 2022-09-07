@@ -1,6 +1,6 @@
-package com.pablobuendia.universitymanager.student;
+package com.pablobuendia.universitymanager.entities.address.city;
 
-import com.pablobuendia.universitymanager.university.University;
+import com.pablobuendia.universitymanager.entities.address.country.Country;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -14,18 +14,19 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Entity
-@Table
+
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
+@Entity
+@Table
 @EntityListeners(AuditingEntityListener.class)
-public class Student {
+public class City {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "studentGenerator")
-    @SequenceGenerator(name = "studentGenerator", sequenceName = "studentGenerator", allocationSize = 10)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cityGenerator")
+    @SequenceGenerator(name = "cityGenerator", sequenceName = "cityGenerator", allocationSize = 10)
     private Long id;
 
     @Version
@@ -37,22 +38,19 @@ public class Student {
     @LastModifiedDate
     private LocalDateTime updated;
 
-    @Column(nullable = false)
-    private String firstName;
+    @Column(nullable = false, unique = true)
+    private String name;
 
-    @Column(nullable = false)
-    private String lastName;
-
-    @ManyToOne
-    @JoinColumn(name = "universityId")
-    private University university;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "countryId", nullable = false)
+    private Country country;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Student student = (Student) o;
-        return id != null && Objects.equals(id, student.id);
+        City city = (City) o;
+        return getId() != null && Objects.equals(getId(), city.getId());
     }
 
     @Override

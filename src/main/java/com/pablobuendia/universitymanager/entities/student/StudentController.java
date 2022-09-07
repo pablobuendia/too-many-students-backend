@@ -1,4 +1,4 @@
-package com.pablobuendia.universitymanager.student;
+package com.pablobuendia.universitymanager.entities.student;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

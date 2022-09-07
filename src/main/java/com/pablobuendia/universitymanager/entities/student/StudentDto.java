@@ -1,7 +1,7 @@
-package com.pablobuendia.universitymanager.student;
+package com.pablobuendia.universitymanager.entities.student;
 
-import com.pablobuendia.universitymanager.address.AddressDto;
-import com.pablobuendia.universitymanager.university.UniversityDto;
+import com.pablobuendia.universitymanager.entities.address.AddressDto;
+import com.pablobuendia.universitymanager.entities.university.UniversityDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

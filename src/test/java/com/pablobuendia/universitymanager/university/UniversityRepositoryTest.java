@@ -1,7 +1,8 @@
 package com.pablobuendia.universitymanager.university;
 
-import com.pablobuendia.universitymanager.address.AddressRepository;
-import com.pablobuendia.universitymanager.student.StudentRepository;
+import com.pablobuendia.universitymanager.entities.address.AddressRepository;
+import com.pablobuendia.universitymanager.entities.student.StudentRepository;
+import com.pablobuendia.universitymanager.entities.university.UniversityRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

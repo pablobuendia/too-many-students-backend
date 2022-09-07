@@ -1,6 +1,6 @@
-package com.pablobuendia.universitymanager.university;
+package com.pablobuendia.universitymanager.entities.university;
 
-import com.pablobuendia.universitymanager.address.AddressDto;
+import com.pablobuendia.universitymanager.entities.address.AddressDto;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;

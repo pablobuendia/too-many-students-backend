@@ -1,6 +1,7 @@
-package com.pablobuendia.universitymanager.university;
+package com.pablobuendia.universitymanager.entities.address;
 
-import com.pablobuendia.universitymanager.address.city.City;
+import com.pablobuendia.universitymanager.entities.address.city.City;
+import com.pablobuendia.universitymanager.entities.student.Student;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -14,31 +15,19 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Entity
-@Table
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
+@Entity
+@Table
 @EntityListeners(AuditingEntityListener.class)
-public class University {
+public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "universityGenerator")
-    @SequenceGenerator(name = "universityGenerator", sequenceName = "universityGenerator", allocationSize = 10)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "addressGenerator")
+    @SequenceGenerator(name = "addressGenerator", sequenceName = "addressGenerator", allocationSize = 10)
     private Long id;
-
-    @Version
-    private Integer version;
-
-    @CreatedDate
-    private LocalDateTime created;
-
-    @LastModifiedDate
-    private LocalDateTime updated;
-
-    @Column(nullable = false, unique = true)
-    private String name;
 
     @Column(nullable = false)
     private String lineStreet1;
@@ -49,12 +38,26 @@ public class University {
     @JoinColumn(name = "cityId")
     private City city;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    // Orphan removal guarantees that when the father entity gets deleted, so will happen with this one
+    private Student studentOwner;
+
+    @Version
+    private Integer version;
+
+    @CreatedDate
+    private LocalDateTime created;
+
+    @LastModifiedDate
+    private LocalDateTime updated;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        University that = (University) o;
-        return id != null && Objects.equals(id, that.id);
+        Address address = (Address) o;
+        return getId() != null && Objects.equals(getId(), address.getId());
     }
 
     @Override

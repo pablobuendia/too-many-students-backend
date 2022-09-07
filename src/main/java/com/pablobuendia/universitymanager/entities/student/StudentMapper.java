@@ -1,7 +1,7 @@
-package com.pablobuendia.universitymanager.student;
+package com.pablobuendia.universitymanager.entities.student;
 
-import com.pablobuendia.universitymanager.university.University;
-import com.pablobuendia.universitymanager.university.UniversityDto;
+import com.pablobuendia.universitymanager.entities.university.University;
+import com.pablobuendia.universitymanager.entities.university.UniversityDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
