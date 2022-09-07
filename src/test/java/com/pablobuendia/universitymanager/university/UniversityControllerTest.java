@@ -1,10 +1,14 @@
 package com.pablobuendia.universitymanager.university;
 
-import com.pablobuendia.universitymanager.address.AddressRepository;
-import com.pablobuendia.universitymanager.address.city.CityRepository;
-import com.pablobuendia.universitymanager.address.country.CountryRepository;
-import com.pablobuendia.universitymanager.student.StudentRepository;
+import com.pablobuendia.universitymanager.entities.address.AddressRepository;
+import com.pablobuendia.universitymanager.entities.address.city.CityRepository;
+import com.pablobuendia.universitymanager.entities.address.country.CountryRepository;
+import com.pablobuendia.universitymanager.entities.student.StudentRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pablobuendia.universitymanager.entities.university.UniversityController;
+import com.pablobuendia.universitymanager.entities.university.UniversityDto;
+import com.pablobuendia.universitymanager.entities.university.UniversityRepository;
+import com.pablobuendia.universitymanager.entities.university.UniversityService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

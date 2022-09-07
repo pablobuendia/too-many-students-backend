@@ -1,4 +1,4 @@
-package com.pablobuendia.universitymanager.address.country;
+package com.pablobuendia.universitymanager.entities.address.country;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -9,5 +9,6 @@ public interface CountryMapper {
     CountryMapper INSTANCE = Mappers.getMapper(CountryMapper.class);
 
     Country cityToCityDto(CountryDto cityDto);
+
     CountryDto cityDtoToCity(Country city);
 }

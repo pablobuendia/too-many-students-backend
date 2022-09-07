@@ -1,4 +1,4 @@
-package com.pablobuendia.universitymanager.university;
+package com.pablobuendia.universitymanager.entities.university;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

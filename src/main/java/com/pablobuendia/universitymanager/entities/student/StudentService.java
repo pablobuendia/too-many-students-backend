@@ -1,4 +1,4 @@
-package com.pablobuendia.universitymanager.student;
+package com.pablobuendia.universitymanager.entities.student;
 
 import com.pablobuendia.universitymanager.event.Publisher;
 import lombok.RequiredArgsConstructor;

@@ -1,16 +1,16 @@
 package com.pablobuendia.universitymanager;
 
-import com.pablobuendia.universitymanager.address.Address;
-import com.pablobuendia.universitymanager.address.AddressRepository;
-import com.pablobuendia.universitymanager.address.city.City;
-import com.pablobuendia.universitymanager.address.city.CityRepository;
-import com.pablobuendia.universitymanager.address.city.CityRepositoryImpl;
-import com.pablobuendia.universitymanager.address.country.Country;
-import com.pablobuendia.universitymanager.address.country.CountryRepository;
-import com.pablobuendia.universitymanager.student.Student;
-import com.pablobuendia.universitymanager.student.StudentRepository;
-import com.pablobuendia.universitymanager.university.University;
-import com.pablobuendia.universitymanager.university.UniversityRepository;
+import com.pablobuendia.universitymanager.entities.address.Address;
+import com.pablobuendia.universitymanager.entities.address.AddressRepository;
+import com.pablobuendia.universitymanager.entities.address.city.City;
+import com.pablobuendia.universitymanager.entities.address.city.CityRepository;
+import com.pablobuendia.universitymanager.entities.address.city.CityRepositoryImpl;
+import com.pablobuendia.universitymanager.entities.address.country.Country;
+import com.pablobuendia.universitymanager.entities.address.country.CountryRepository;
+import com.pablobuendia.universitymanager.entities.student.Student;
+import com.pablobuendia.universitymanager.entities.student.StudentRepository;
+import com.pablobuendia.universitymanager.entities.university.University;
+import com.pablobuendia.universitymanager.entities.university.UniversityRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;

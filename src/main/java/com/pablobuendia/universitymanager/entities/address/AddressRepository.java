@@ -1,4 +1,4 @@
-package com.pablobuendia.universitymanager.address;
+package com.pablobuendia.universitymanager.entities.address;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

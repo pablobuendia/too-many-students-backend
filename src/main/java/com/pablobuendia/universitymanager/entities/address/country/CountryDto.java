@@ -1,4 +1,4 @@
-package com.pablobuendia.universitymanager.address.country;
+package com.pablobuendia.universitymanager.entities.address.country;
 
 import lombok.Data;
 

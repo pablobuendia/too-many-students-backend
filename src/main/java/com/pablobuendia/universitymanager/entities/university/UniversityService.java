@@ -1,4 +1,4 @@
-package com.pablobuendia.universitymanager.university;
+package com.pablobuendia.universitymanager.entities.university;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;

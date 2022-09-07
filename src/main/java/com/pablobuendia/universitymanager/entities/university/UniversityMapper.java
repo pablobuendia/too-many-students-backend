@@ -1,4 +1,4 @@
-package com.pablobuendia.universitymanager.university;
+package com.pablobuendia.universitymanager.entities.university;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
