@@ -1,5 +1,6 @@
 package com.pablobuendia.universitymanager.entities.student;
 
+import com.pablobuendia.universitymanager.error.ElementNotFoundException;
 import com.pablobuendia.universitymanager.event.Publisher;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -30,7 +31,7 @@ public class StudentService {
     @Cacheable
     public StudentDto getStudent(Long id) {
         val student = studentRepository.findById(id).orElseThrow(() ->
-                new RuntimeException("No such student found with id"));
+                new ElementNotFoundException("No such student found with id " + id));
         return StudentMapper.INSTANCE.studentToStudentDto(student);
     }
 
@@ -46,12 +47,19 @@ public class StudentService {
 
     @CacheEvict
     public void deleteStudent(Long id) {
+        if (!studentRepository.existsById(id))
+            throw new ElementNotFoundException("No such student found with id " + id);
+
         studentRepository.deleteById(id);
     }
 
     @CachePut(key = "#id")
     public StudentDto updateStudent(Long id, StudentDto studentDto) {
-        val updatedStudent = studentRepository.save(StudentMapper.INSTANCE.studentDtoToStudent(studentDto));
+        if (!studentRepository.existsById(id))
+            throw new ElementNotFoundException("No such student found with id " + id);
+
+        val updatedStudent = studentRepository
+                .save(StudentMapper.INSTANCE.studentDtoToStudent(studentDto));
         return StudentMapper.INSTANCE.studentToStudentDto(updatedStudent);
     }
 }

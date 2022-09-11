@@ -1,3 +1,10 @@
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: ON_PARAM
+    include-exception: false
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
@@ -24,6 +31,8 @@ com:
     async:
       enabled: true
     auditing:
+      enabled: true
+    trace:
       enabled: true
 
 management:
