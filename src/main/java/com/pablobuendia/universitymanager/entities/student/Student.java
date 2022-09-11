@@ -43,6 +43,12 @@ public class Student {
     @Column(nullable = false)
     private String lastName;
 
+    @Column(nullable = false)
+    private String documentType;
+
+    @Column(nullable = false)
+    private String documentNumber;
+
     @ManyToOne
     @JoinColumn(name = "universityId")
     private University university;
