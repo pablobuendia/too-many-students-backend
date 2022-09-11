@@ -1,6 +1,7 @@
 package com.pablobuendia.universitymanager.entities.university;
 
 import com.pablobuendia.universitymanager.entities.address.city.City;
+import com.pablobuendia.universitymanager.entities.student.Student;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -48,6 +50,9 @@ public class University {
     @OneToOne
     @JoinColumn(name = "cityId")
     private City city;
+
+    @OneToMany
+    private List<Student> students;
 
     @Override
     public boolean equals(Object o) {
