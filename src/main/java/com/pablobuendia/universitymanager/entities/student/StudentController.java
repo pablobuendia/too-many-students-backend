@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,31 +21,31 @@ public class StudentController {
     @Operation(summary = "Get all students", description = "Get all students, including addresses and university")
     @GetMapping
     List<StudentDto> findAllStudents() {
-        val result = studentService.getAllStudents();
+        log.debug("Fetching all customers");
         return studentService.getAllStudents();
     }
 
     @GetMapping("/{studentID}")
     StudentDto getCustomerByID(@Parameter(description = "Student ID") @PathVariable("studentID") String studentID) {
-        log.info("g=fetching customer with id {}", studentID);
+        log.debug("fetching customer with id {}", studentID);
         return studentService.getStudent(Long.parseLong(studentID));
     }
 
     @PostMapping
     StudentDto postNewStudent(@RequestBody StudentDto newStudent) {
-        log.info("Saving new customer");
+        log.debug("Saving new customer");
         return studentService.addStudent(newStudent);
     }
 
     @PatchMapping("/{studentID}")
     StudentDto updateNewStudent(@PathVariable("studentID") String studentID, @RequestBody StudentDto student) {
-        log.info("Updating customer with id {}", studentID);
+        log.debug("Updating customer with id {}", studentID);
         return studentService.updateStudent(Long.parseLong(studentID), student);
     }
 
     @DeleteMapping("/{studentID}")
     void deleteStudent(@PathVariable("studentID") String studentID) {
-        log.info("Deleting customer with id {}", studentID);
+        log.debug("Deleting customer with id {}", studentID);
         studentService.deleteStudent(Long.parseLong(studentID));
     }
 }

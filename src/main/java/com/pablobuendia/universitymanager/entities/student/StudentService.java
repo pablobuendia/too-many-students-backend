@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 public class StudentService {
 
     private final StudentRepository studentRepository;
-
     private final Publisher publisher;
 
     public List<StudentDto> getAllStudents() {
@@ -36,30 +35,37 @@ public class StudentService {
     }
 
     public StudentDto addStudent(StudentDto studentDto) {
-        val studentEntity = StudentMapper.INSTANCE.studentDtoToStudent(studentDto);
-
-        val savedStudent = studentRepository.save(studentEntity);
+        val savedStudent = saveStudent(studentDto);
 
         publisher.publishEvent(savedStudent.getUpdated().toString());
-
         return StudentMapper.INSTANCE.studentToStudentDto(savedStudent);
+    }
+
+    private Student saveStudent(StudentDto studentDto) {
+        val studentEntity = StudentMapper.INSTANCE.studentDtoToStudent(studentDto);
+
+        return studentRepository.save(studentEntity);
     }
 
     @CacheEvict
     public void deleteStudent(Long id) {
-        if (!studentRepository.existsById(id))
-            throw new ElementNotFoundException("No such student found with id " + id);
+        checkStudentExists(id);
 
         studentRepository.deleteById(id);
     }
 
     @CachePut(key = "#id")
     public StudentDto updateStudent(Long id, StudentDto studentDto) {
-        if (!studentRepository.existsById(id))
-            throw new ElementNotFoundException("No such student found with id " + id);
+        checkStudentExists(id);
 
         val updatedStudent = studentRepository
                 .save(StudentMapper.INSTANCE.studentDtoToStudent(studentDto));
         return StudentMapper.INSTANCE.studentToStudentDto(updatedStudent);
     }
+
+    private void checkStudentExists(Long id) {
+        if (!studentRepository.existsById(id))
+            throw new ElementNotFoundException("No such student found with id " + id);
+    }
+
 }
