@@ -40,9 +40,6 @@ public class UniversityManagerApplication implements CommandLineRunner {
   public void run(String... args) {
     log.info("Entering sample data through CommandLineRunner");
 
-    val uni = createUniversity("University of Buenos Aires", "Paso 123");
-    universityRepository.save(uni);
-
     val argentina = createCountry("Argentina");
     countryRepository.save(argentina);
     val buenosAires = new City();
@@ -50,17 +47,25 @@ public class UniversityManagerApplication implements CommandLineRunner {
     buenosAires.setCountry(argentina);
     cityRepository.save(buenosAires);
 
+    val uni = createUniversity("University of Buenos Aires", "Paso 123", buenosAires);
+    universityRepository.save(uni);
+
     val pablo = studentRepository.save(
-        createStudent(uni, "Pablo", "Buendia", "DNI", "10100100"));
+        createStudent(uni, "Pablo", "Buendia", "DNI", "10100100", null));
     val maria = studentRepository.save(
-        createStudent(uni, "Maria", "Rodriguez", "DNI", "20200200"));
+        createStudent(uni, "Maria", "Rodriguez", "DNI", "20200200", null));
     val juana = studentRepository.save(
-        createStudent(uni, "Juana", "Perez", "DNI", "30300300"));
+        createStudent(uni, "Juana", "Perez", "DNI", "30300300", null));
 
     val addressPablo = createAddress(pablo, buenosAires, "Belgrano 111");
     val addressMaria = createAddress(maria, buenosAires, "Guemes 111");
     val addressJuana = createAddress(juana, buenosAires, "Paz 111");
     addressRepository.saveAll(List.of(addressPablo, addressMaria, addressJuana));
+
+    pablo.setAddress(addressPablo);
+    maria.setAddress(addressMaria);
+    juana.setAddress(addressJuana);
+    studentRepository.saveAll(List.of(pablo, maria, juana));
 
     // Try EntityManager save action
     val city = new City();
@@ -69,10 +74,11 @@ public class UniversityManagerApplication implements CommandLineRunner {
     cityRepositoryImpl.save(city);
   }
 
-  private University createUniversity(String name, String lineStreet1) {
+  private University createUniversity(String name, String lineStreet1, City city) {
     University uni = new University();
     uni.setName(name);
     uni.setLineStreet1(lineStreet1);
+    uni.setCity(city);
     return uni;
   }
 
@@ -83,13 +89,14 @@ public class UniversityManagerApplication implements CommandLineRunner {
   }
 
   private Student createStudent(University uni, String firstName, String lastName,
-      String documentType, String documentNumber) {
+      String documentType, String documentNumber, Address address) {
     val student = new Student();
     student.setUniversity(uni);
     student.setFirstName(firstName);
     student.setLastName(lastName);
     student.setDocumentType(documentType);
     student.setDocumentNumber(documentNumber);
+    student.setAddress(address);
     return student;
   }
 
