@@ -14,20 +14,28 @@ public class UniversityService {
 
   public List<UniversityDto> getAllUniversities() {
     return universityRepository.findAll().stream()
-        .map(UniversityMapper.INSTANCE::universityToUniversityDto)
+        .map(ShortUniversityMapper.INSTANCE::universityToUniversityDto)
         .collect(Collectors.toList());
   }
 
   public UniversityDto getUniversity(Long id) {
     val university = universityRepository.findById(id).orElseThrow(() ->
         new RuntimeException("No university found for id"));
+    return ShortUniversityMapper.INSTANCE.universityToUniversityDto(university);
+  }
+
+  public UniversityDto getUniversityWithStudents(Long id) {
+    val university = universityRepository.retrieveById(id).orElseThrow(() ->
+        new RuntimeException("No university found for id"));
     return UniversityMapper.INSTANCE.universityToUniversityDto(university);
   }
+
 
   public UniversityDto postNewUniversity(UniversityDto universityDto) {
     val response = universityRepository.save(
         UniversityMapper.INSTANCE.universityDtoToUniversity(universityDto));
 
-    return UniversityMapper.INSTANCE.universityToUniversityDto(response);
+    return ShortUniversityMapper.INSTANCE.universityToUniversityDto(response);
   }
+
 }

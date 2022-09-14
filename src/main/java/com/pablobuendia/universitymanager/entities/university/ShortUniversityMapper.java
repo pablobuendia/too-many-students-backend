@@ -8,12 +8,14 @@ import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface UniversityMapper {
+public interface ShortUniversityMapper {
 
-  UniversityMapper INSTANCE = Mappers.getMapper(UniversityMapper.class);
+  ShortUniversityMapper INSTANCE = Mappers.getMapper(ShortUniversityMapper.class);
 
+  @Mappings({@Mapping(target = "students", expression = "java(null)")})
   University universityDtoToUniversity(UniversityDto universityDto);
 
+  @Mappings({@Mapping(target = "students", expression = "java(null)")})
   UniversityDto universityToUniversityDto(University university);
 
   @Mappings({@Mapping(target = "university", expression = "java(null)")})
