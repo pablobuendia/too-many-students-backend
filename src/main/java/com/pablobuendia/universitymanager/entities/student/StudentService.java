@@ -62,10 +62,24 @@ public class StudentService {
     return StudentMapper.INSTANCE.studentToStudentDto(updatedStudent);
   }
 
+  public StudentDto putStudent(Long id, StudentDto studentDto) {
+    checkStudentExists(id);
+
+    val updatedStudent = studentRepository
+        .save(StudentMapper.INSTANCE.studentDtoToStudent(studentDto));
+    return StudentMapper.INSTANCE.studentToStudentDto(updatedStudent);
+  }
+
+  public List<StudentDto> getAllStudentsOrderedByLastName() {
+    return studentRepository
+        .findAllByOrderByLastNameAsc().stream()
+        .map(StudentMapper.INSTANCE::studentToStudentDto)
+        .collect(Collectors.toList());
+  }
+
   private void checkStudentExists(Long id) {
     if (!studentRepository.existsById(id)) {
       throw new ElementNotFoundException("No such student found with id " + id);
     }
   }
-
 }

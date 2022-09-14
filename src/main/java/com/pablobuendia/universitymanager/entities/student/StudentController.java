@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,15 +28,15 @@ public class StudentController {
   @Operation(summary = "Get all students", description = "Get all students, including addresses and university")
   @GetMapping
   List<StudentDto> findAllStudents() {
-    log.debug("Fetching all customers");
-    return studentService.getAllStudents();
+    log.debug("Fetching all students");
+    return studentService.getAllStudentsOrderedByLastName();
   }
 
-  @GetMapping("/{studentID}")
-  StudentDto getCustomerByID(
-      @Parameter(description = "Student ID") @PathVariable("studentID") String studentID) {
-    log.debug("fetching customer with id {}", studentID);
-    return studentService.getStudent(Long.parseLong(studentID));
+  @GetMapping("/{studentId}")
+  StudentDto getStudentById(
+      @Parameter(description = "Student ID") @PathVariable String studentId) {
+    log.debug("fetching student with id {}", studentId);
+    return studentService.getStudent(Long.parseLong(studentId));
   }
 
   @PostMapping
@@ -44,16 +45,22 @@ public class StudentController {
     return studentService.addStudent(newStudent);
   }
 
-  @PatchMapping("/{studentID}")
-  StudentDto updateNewStudent(@PathVariable("studentID") String studentID,
+  @PatchMapping("/{studentId}")
+  StudentDto updateStudent(@PathVariable String studentId,
       @RequestBody StudentDto student) {
-    log.debug("Updating customer with id {}", studentID);
-    return studentService.updateStudent(Long.parseLong(studentID), student);
+    log.debug("Updating customer with id {}", studentId);
+    return studentService.updateStudent(Long.parseLong(studentId), student);
   }
 
-  @DeleteMapping("/{studentID}")
-  void deleteStudent(@PathVariable("studentID") String studentID) {
-    log.debug("Deleting customer with id {}", studentID);
-    studentService.deleteStudent(Long.parseLong(studentID));
+  @PutMapping("/{studentId}")
+  StudentDto patchStudent(@PathVariable String studentId, @RequestBody StudentDto studentDto) {
+    log.debug("Putting docmuent with id {}", studentId);
+    return studentService.putStudent(Long.parseLong(studentId), studentDto);
+  }
+
+  @DeleteMapping("/{studentId}")
+  void deleteStudent(@PathVariable String studentId) {
+    log.debug("Deleting customer with id {}", studentId);
+    studentService.deleteStudent(Long.parseLong(studentId));
   }
 }
