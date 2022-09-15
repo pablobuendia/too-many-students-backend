@@ -21,7 +21,6 @@ import javax.persistence.Version;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.ToString.Exclude;
 import org.hibernate.Hibernate;
 import org.springframework.data.annotation.CreatedDate;
@@ -32,7 +31,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class University {

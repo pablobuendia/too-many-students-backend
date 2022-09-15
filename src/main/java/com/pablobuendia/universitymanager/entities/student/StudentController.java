@@ -54,7 +54,7 @@ public class StudentController {
 
   @PutMapping("/{studentId}")
   StudentDto patchStudent(@PathVariable String studentId, @RequestBody StudentDto studentDto) {
-    log.debug("Putting docmuent with id {}", studentId);
+    log.debug("Putting document with id {}", studentId);
     return studentService.putStudent(Long.parseLong(studentId), studentDto);
   }
 
