@@ -3,7 +3,6 @@ package com.pablobuendia.universitymanager.entities.student;
 import com.pablobuendia.universitymanager.entities.address.Address;
 import com.pablobuendia.universitymanager.entities.university.University;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -20,9 +19,6 @@ import javax.persistence.Version;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-import lombok.ToString.Exclude;
-import org.hibernate.Hibernate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -31,7 +27,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class Student {
@@ -64,27 +59,9 @@ public class Student {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "universityId")
-  @Exclude
   private University university;
 
   @OneToOne(fetch = FetchType.LAZY)
-  @Exclude
   private Address address;
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
-      return false;
-    }
-    Student student = (Student) o;
-    return id != null && Objects.equals(id, student.id);
-  }
-
-  @Override
-  public int hashCode() {
-    return getClass().hashCode();
-  }
 }
