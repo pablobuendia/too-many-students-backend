@@ -4,7 +4,6 @@ import com.pablobuendia.universitymanager.entities.address.city.City;
 import com.pablobuendia.universitymanager.entities.student.Student;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -21,8 +20,6 @@ import javax.persistence.Version;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.ToString.Exclude;
-import org.hibernate.Hibernate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -62,23 +59,6 @@ public class University {
   private City city;
 
   @OneToMany(mappedBy = "university", fetch = FetchType.LAZY)
-  @Exclude
   private List<Student> students;
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
-      return false;
-    }
-    University that = (University) o;
-    return id != null && Objects.equals(id, that.id);
-  }
-
-  @Override
-  public int hashCode() {
-    return getClass().hashCode();
-  }
 }
