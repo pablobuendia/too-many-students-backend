@@ -30,8 +30,8 @@ public class Course {
 
   private String name;
   private String degree;
-  private String credits;
-  private Integer passingGrade;
+  private Integer credits;
+  private Double passingGrade;
 
   @OneToMany(mappedBy = "parentCourse", fetch = FetchType.LAZY)
   private List<CourseInstance> instances;

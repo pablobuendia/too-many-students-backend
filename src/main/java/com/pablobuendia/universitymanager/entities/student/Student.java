@@ -1,8 +1,10 @@
 package com.pablobuendia.universitymanager.entities.student;
 
 import com.pablobuendia.universitymanager.entities.address.Address;
+import com.pablobuendia.universitymanager.entities.course.CourseInstance;
 import com.pablobuendia.universitymanager.entities.university.University;
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -11,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -63,5 +66,8 @@ public class Student {
 
   @OneToOne(fetch = FetchType.LAZY)
   private Address address;
+
+  @ManyToMany(fetch = FetchType.LAZY)
+  private List<CourseInstance> courses;
 
 }

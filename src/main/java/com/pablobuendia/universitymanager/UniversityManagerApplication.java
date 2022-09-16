@@ -7,10 +7,16 @@ import com.pablobuendia.universitymanager.entities.address.city.CityRepository;
 import com.pablobuendia.universitymanager.entities.address.city.CityRepositoryImpl;
 import com.pablobuendia.universitymanager.entities.address.country.Country;
 import com.pablobuendia.universitymanager.entities.address.country.CountryRepository;
+import com.pablobuendia.universitymanager.entities.course.Course;
+import com.pablobuendia.universitymanager.entities.course.CourseInstance;
+import com.pablobuendia.universitymanager.entities.course.CourseInstanceRepository;
+import com.pablobuendia.universitymanager.entities.course.CourseRepository;
 import com.pablobuendia.universitymanager.entities.student.Student;
 import com.pablobuendia.universitymanager.entities.student.StudentRepository;
 import com.pablobuendia.universitymanager.entities.university.University;
 import com.pablobuendia.universitymanager.entities.university.UniversityRepository;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +35,9 @@ public class UniversityManagerApplication implements CommandLineRunner {
   private final AddressRepository addressRepository;
   private final CityRepository cityRepository;
   private final CountryRepository countryRepository;
-
   private final CityRepositoryImpl cityRepositoryImpl;
+  private final CourseRepository courseRepository;
+  private final CourseInstanceRepository courseInstanceRepository;
 
   public static void main(String[] args) {
     SpringApplication.run(UniversityManagerApplication.class, args);
@@ -61,6 +68,18 @@ public class UniversityManagerApplication implements CommandLineRunner {
     val addressMaria = createAddress(maria, buenosAires, "Guemes 111");
     val addressJuana = createAddress(juana, buenosAires, "Paz 111");
     addressRepository.saveAll(List.of(addressPablo, addressMaria, addressJuana));
+
+    val mathCourse = createCourse("Math", 20, "Medicine", 7.0d);
+    val physicsCourse = createCourse("Physics", 30, "Physics", 6.0d);
+
+    val mathCourse2022 = createCourseInstance(mathCourse, "Professor Math Guy",
+        LocalDate.of(2022, Month.JANUARY, 1));
+
+    val physicsCourse2022 = createCourseInstance(mathCourse, "Professor Physics Guy",
+        LocalDate.of(2022, Month.JANUARY, 1));
+
+    pablo.setCourses(List.of(physicsCourse2022, mathCourse2022));
+    maria.setCourses(List.of(physicsCourse2022, mathCourse2022));
 
     pablo.setAddress(addressPablo);
     maria.setAddress(addressMaria);
@@ -108,5 +127,21 @@ public class UniversityManagerApplication implements CommandLineRunner {
     return addressUni;
   }
 
+  private Course createCourse(String name, Integer credits, String degree, Double passingGrade) {
+    val course = new Course();
+    course.setCredits(credits);
+    course.setName(name);
+    course.setDegree(degree);
+    course.setPassingGrade(passingGrade);
+    return courseRepository.save(course);
+  }
+
+  private CourseInstance createCourseInstance(Course course, String professorName, LocalDate year) {
+    val courseInstance = new CourseInstance();
+    courseInstance.setParentCourse(course);
+    courseInstance.setProfessorName(professorName);
+    courseInstance.setYear(year);
+    return courseInstanceRepository.save(courseInstance);
+  }
 
 }
