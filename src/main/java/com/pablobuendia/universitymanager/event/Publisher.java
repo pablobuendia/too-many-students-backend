@@ -10,7 +10,11 @@ public class Publisher {
 
     private final ApplicationEventPublisher publisher;
 
-    public void publishEvent(String name) {
-        publisher.publishEvent(new UserCreatedEvent(name));
+    public void publishEvent(Object event) {
+        publisher.publishEvent(event);
+    }
+
+    public void publishEvent(Long name) {
+        publisher.publishEvent(new UserCreatedEvent(name, null));
     }
 }
