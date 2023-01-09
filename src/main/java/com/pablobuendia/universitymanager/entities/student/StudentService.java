@@ -2,6 +2,7 @@ package com.pablobuendia.universitymanager.entities.student;
 
 import com.pablobuendia.universitymanager.error.ElementNotFoundException;
 import com.pablobuendia.universitymanager.event.Publisher;
+import com.pablobuendia.universitymanager.event.UserCreatedEvent;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@CacheConfig(cacheNames = "product-cache")
+@CacheConfig(cacheNames = "student-cache")
 public class StudentService {
 
   private final StudentRepository studentRepository;
@@ -36,7 +37,7 @@ public class StudentService {
   public StudentDto addStudent(StudentDto studentDto) {
     val savedStudent = saveStudent(studentDto);
 
-    publisher.publishEvent(savedStudent.getUpdated().toString());
+    publishNewCreatedStudent(savedStudent);
     return StudentMapper.INSTANCE.studentToStudentDto(savedStudent);
   }
 
@@ -81,5 +82,11 @@ public class StudentService {
     if (!studentRepository.existsById(id)) {
       throw new ElementNotFoundException("No such student found with id " + id);
     }
+  }
+
+  private void publishNewCreatedStudent(Student student) {
+    UserCreatedEvent newEvent = new UserCreatedEvent(student.getId(), student.getCreated());
+
+    publisher.publishEvent(newEvent);
   }
 }
