@@ -13,4 +13,5 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "CourseController", description = "Course controller")
 public class CourseController {
 
+  private final CourseService courseService;
 }
